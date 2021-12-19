@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    Strat strat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,11 +16,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    private void LoadGame(){
+    public void LoadGame(){
 
     }
 
-    private void additionMode(){
+    public void additionMode(View view){
+        strat = new AddStrat();
+        LoadGame();
+    }
 
+    public void subtractionMode(View view){
+        strat = new SubStrat();
+        LoadGame();
+    }
+
+    public void multiplicationMode(View view){
+        strat = new MultStrat();
+        LoadGame();
+    }
+
+    public void result(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
