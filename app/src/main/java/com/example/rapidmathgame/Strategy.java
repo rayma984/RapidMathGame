@@ -1,6 +1,6 @@
 package com.example.rapidmathgame;
 
 public interface Strategy {
-    int GenerateFirst();
-    int GenerateLast();
+    public String getProblem();
+    public int getAnswer();
 }
