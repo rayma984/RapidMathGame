@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RapidMathGame</string>
+    <string name="Multiplication">Multiplication</string>
+    <string name="Subtraction" >Subtraction</string>
+    <string name="Division">Division</string>
+    <string name="Addition">Addition</string>
+</resources>
