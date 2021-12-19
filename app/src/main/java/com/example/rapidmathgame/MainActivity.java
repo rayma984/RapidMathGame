@@ -2,6 +2,7 @@ package com.example.rapidmathgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -16,23 +17,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void LoadGame(){
-
+    public void LoadGame(String mode){
+        Intent intent = new Intent(this, GamePage.class);
+        intent.putExtra("mode", mode);
+        intent.putExtra("STRAT", strat);
     }
 
     public void additionMode(View view){
         strat = new AddStrat();
-        LoadGame();
+        LoadGame(getString(R.string.Addition));
+        result("Addition Selected");
     }
 
     public void subtractionMode(View view){
         strat = new SubStrat();
-        LoadGame();
+        LoadGame(getString(R.string.Subtraction));
+        result("Subtraction Selected");
     }
 
     public void multiplicationMode(View view){
         strat = new MultStrat();
-        LoadGame();
+        LoadGame(getString(R.string.Multiplication));
+        result("Multiplication Selected");
     }
 
     public void result(String message) {
