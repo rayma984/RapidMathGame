@@ -11,11 +11,7 @@ public class AddStrat implements Strat, Serializable {
     private int second;
 
     public AddStrat(){
-        first = GenerateNum();
-
-        second = GenerateNum();
-        while(first == second)
-            second = GenerateNum(); //ensures first != second
+        nextProblem();
     }
 
     @Override
@@ -35,5 +31,14 @@ public class AddStrat implements Strat, Serializable {
             num = rand.nextInt(UPPER);
         }
         return num;
+    }
+
+    @Override
+    public void nextProblem(){
+        first = GenerateNum();
+
+        second = GenerateNum();
+        while(first == second)
+            second = GenerateNum(); //ensures first != second
     }
 }

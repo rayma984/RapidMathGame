@@ -11,11 +11,7 @@ public class MultStrat implements Strat, Serializable {
     private int second;
 
     public MultStrat(){
-        first = GenerateNum();
-
-        second = GenerateNum();
-        while(first == second)
-            second = GenerateNum(); //ensures first != second
+        nextProblem();
     }
 
     @Override
@@ -35,5 +31,14 @@ public class MultStrat implements Strat, Serializable {
             num = rand.nextInt(UPPER);
         }
         return num;
+    }
+
+    @Override
+    public void nextProblem(){
+        first = GenerateNum();
+
+        second = GenerateNum();
+        while(first == second)
+            second = GenerateNum(); //ensures first != second
     }
 }

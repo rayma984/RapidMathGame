@@ -11,11 +11,7 @@ public class SubStrat implements Strat, Serializable {
     private int second;
 
     public SubStrat(){
-        first = GenerateNum();
-
-        second = GenerateNum();
-        while(first == second)
-            second = GenerateNum(); //ensures first != second
+         nextProblem();
     }
 
     @Override
@@ -37,4 +33,12 @@ public class SubStrat implements Strat, Serializable {
         return num;
     }
 
+    @Override
+    public void nextProblem(){
+        first = GenerateNum();
+
+        second = GenerateNum();
+        while(first == second)
+            second = GenerateNum(); //ensures first != second
+    }
 }
