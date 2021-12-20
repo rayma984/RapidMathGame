@@ -41,4 +41,9 @@ public class AddStrat implements Strat, Serializable {
         while(first == second)
             second = GenerateNum(); //ensures first != second
     }
+
+    @Override
+    public String toString(){
+        return getProblem();
+    }
 }

@@ -41,4 +41,9 @@ public class MultStrat implements Strat, Serializable {
         while(first == second)
             second = GenerateNum(); //ensures first != second
     }
+
+    @Override
+    public String toString(){
+        return getProblem();
+    }
 }
