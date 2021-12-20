@@ -3,19 +3,28 @@ package com.example.rapidmathgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.widget.Button;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class GamePage extends AppCompatActivity {
 
     Strat strat;
     int answer;
     TextView lblProb;
+    Button btnSubmit;
+    private final int milli_to_sec = 1000;
+    TextView lblTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_page);
 
+        btnSubmit = findViewById(R.id.btnAnswer);
         //load in the mode label
         String mode = (String) getIntent().getStringExtra("mode");
         TextView lblMode = findViewById(R.id.lblMode);
@@ -24,11 +33,29 @@ public class GamePage extends AppCompatActivity {
         //set the first question
         strat = (Strat) getIntent().getSerializableExtra("STRAT");
         lblProb = findViewById(R.id.lblProblem);
-        lblProb.setText(strat.getProblem());
-        answer = strat.getAnswer();
+        loadQuestion();
+
+        //set the timer
+        lblTime = findViewById(R.id.lblTimeLeft);
+        new CountDownTimer(milli_to_sec * 120, milli_to_sec){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                NumberFormat f = new DecimalFormat("00");
+                long min = (millisUntilFinished / 60000) % 60;
+                long sec = (millisUntilFinished / 1000) % 60;
+                lblTime.setText(f.format(min) + ":" + f.format(sec));
+            }
+            @Override
+            public void onFinish() { //when time runs out, stop the game
+                
+            }
+        };
     }
 
     public void loadQuestion(){
-
+        strat.nextProblem();
+        lblProb.setText(strat.getProblem());
+        answer = strat.getAnswer();
     }
 }
