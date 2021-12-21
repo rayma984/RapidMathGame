@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -21,6 +23,7 @@ public class GamePage extends AppCompatActivity {
     private final int milli_to_sec = 1000;
     TextView lblTime;
     TextView txtInput;
+    TextView lblMode;
     GameSession session;
 
     @Override
@@ -31,9 +34,10 @@ public class GamePage extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnAnswer);
         txtInput = findViewById(R.id.txtInput);
         //load in the mode label
-        String mode = (String) getIntent().getStringExtra("mode");
-        TextView lblMode = findViewById(R.id.lblMode);
+        String mode = getIntent().getStringExtra("mode");
+        lblMode = findViewById(R.id.lblMode);
         lblMode.setText(mode);
+
 
         //set the first question
         strat = (Strat) getIntent().getSerializableExtra("STRAT");
@@ -42,6 +46,7 @@ public class GamePage extends AppCompatActivity {
         session = new GameSession();
 
         //set the timer
+        /***
         lblTime = findViewById(R.id.lblTimeLeft);
         new CountDownTimer(milli_to_sec * 120, milli_to_sec){
 
@@ -60,6 +65,7 @@ public class GamePage extends AppCompatActivity {
                 //send it to the next activity
             }
         };
+         ***/
     }
 
     public void loadQuestion(){
@@ -83,5 +89,10 @@ public class GamePage extends AppCompatActivity {
         strat.nextProblem();
         lblProb.setText(strat.getProblem());
         answer = strat.getAnswer();
+    }
+
+    public void debug(String msg){
+        Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
