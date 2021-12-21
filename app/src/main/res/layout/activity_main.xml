@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/btnAddition"
-        android:layout_width="125"
-        android:layout_height="75"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
         android:layout_marginStart="143dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="143dp"
@@ -24,8 +24,8 @@
 
     <Button
         android:id="@+id/btnSubtract"
-        android:layout_width="125"
-        android:layout_height="75"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
         android:layout_marginStart="143dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="143dp"
@@ -55,7 +55,7 @@
 
     <Button
         android:id="@+id/btnMultiply"
-        android:layout_width="125"
+        android:layout_width="125dp"
         android:layout_height="75dp"
         android:layout_marginStart="144dp"
         android:layout_marginTop="70dp"
