@@ -46,10 +46,11 @@ public class GamePage extends AppCompatActivity {
         session = new GameSession();
 
         //set the timer
-        /***
-        lblTime = findViewById(R.id.lblTimeLeft);
-        new CountDownTimer(milli_to_sec * 120, milli_to_sec){
 
+        lblTime = findViewById(R.id.lblTimeLeft);
+        lblTime.setText("TIME");
+
+        new CountDownTimer(milli_to_sec * 120, milli_to_sec){
             @Override
             public void onTick(long millisUntilFinished) {
                 NumberFormat f = new DecimalFormat("00");
@@ -64,8 +65,7 @@ public class GamePage extends AppCompatActivity {
 
                 //send it to the next activity
             }
-        };
-         ***/
+        }.start();
     }
 
     public void loadQuestion(){
@@ -82,13 +82,11 @@ public class GamePage extends AppCompatActivity {
         boolean correct = (submission == answer);
         session.answer(strat.getProblem(), submission, correct);
 
-        //clear the textview
+        //clear the textview and load the next question
         txtInput.setText("");
-
         //new question
-        strat.nextProblem();
-        lblProb.setText(strat.getProblem());
-        answer = strat.getAnswer();
+        loadQuestion();
+
     }
 
     public void debug(String msg){

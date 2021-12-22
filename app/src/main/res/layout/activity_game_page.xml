@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".GamePage">
 
-    <EditText
-        android:id="@+id/txtInput"
-        android:layout_width="225dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="204dp"
-        android:ems="10"
-        android:hint="@string/Answer"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/lblMode"
         android:layout_width="wrap_content"
@@ -25,9 +13,8 @@
         android:layout_marginStart="177dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="176dp"
-        android:layout_marginBottom="644dp"
+        android:text="wag"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,42 +25,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="177dp"
-        android:layout_marginTop="386dp"
+        android:layout_marginTop="104dp"
         android:layout_marginEnd="176dp"
-        android:layout_marginBottom="318dp"
+        android:text="hopefully this is never seen"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/lblTimeLeft" />
 
     <Button
         android:id="@+id/btnAnswer"
         android:layout_width="124dp"
         android:layout_height="60dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="470dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="201dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="296dp"
         android:onClick="submitAnswer"
         android:text="Answer"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtInput"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/txtInput"
+        android:layout_width="189dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="296dp"
+        android:ems="10"
+        android:hint="@string/Answer"
+        android:inputType="numberSigned"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/lblTimeLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="137dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="177dp"
-        android:layout_marginBottom="316dp"
+        android:text="wan"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/lblMode" />
 </androidx.constraintlayout.widget.ConstraintLayout>
