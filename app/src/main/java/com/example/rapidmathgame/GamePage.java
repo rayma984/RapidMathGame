@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,9 +23,11 @@ public class GamePage extends AppCompatActivity {
     Button btnSubmit;
     private final int milli_to_sec = 1000;
     TextView lblTime;
-    TextView txtInput;
+    EditText txtInput;
     TextView lblMode;
     GameSession session;
+    TextView lblquestionNumber;
+    private int questionNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class GamePage extends AppCompatActivity {
 
         btnSubmit = findViewById(R.id.btnAnswer);
         txtInput = findViewById(R.id.txtInput);
+        lblquestionNumber = findViewById(R.id.lblQustionNumber);
+        lblquestionNumber.setText("Question 0:");
+
         //load in the mode label
         String mode = getIntent().getStringExtra("mode");
         lblMode = findViewById(R.id.lblMode);
@@ -75,7 +81,7 @@ public class GamePage extends AppCompatActivity {
     }
 
     public void submitAnswer(View view){
-        String input = (String) txtInput.getText();
+        String input = txtInput.getText().toString();
         int submission = Integer.parseInt(input);
 
         //check the answer and add it to the session
@@ -86,7 +92,8 @@ public class GamePage extends AppCompatActivity {
         txtInput.setText("");
         //new question
         loadQuestion();
-
+        questionNumber++;
+        lblquestionNumber.setText("Question " + questionNumber + ":");
     }
 
     public void debug(String msg){
