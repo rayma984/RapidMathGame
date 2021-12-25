@@ -29,7 +29,7 @@ public class GamePage extends AppCompatActivity {
     GameSession session;
     TextView lblquestionNumber;
     private int questionNumber = 1;
-    private int durationSecs = 30;
+    private int durationSecs = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

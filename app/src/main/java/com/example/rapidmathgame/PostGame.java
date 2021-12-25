@@ -2,8 +2,10 @@ package com.example.rapidmathgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.CheckBox;
@@ -11,9 +13,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,6 +67,9 @@ public class PostGame extends AppCompatActivity {
             txtName.setText("");
         }//valid name input
         else {
+            //get the name
+            session.makePlayer(name);
+
             //upload the score to the firebase
             if (chbxOnline.isChecked()) {
 
@@ -68,26 +77,12 @@ public class PostGame extends AppCompatActivity {
 
             //store the data in a file
             if (chbxLocal.isChecked()) {
-                File scoresFile = new File("Scores.txt");
-                //create the file if it doesnt already exist
-                try {
-                    if(!scoresFile.createNewFile()){
+                String fileName = "Scores.txt";
+                String output = session.getPlayerName() + " : " + session.getPlayerScore();
+                writeToFile(fileName, output);
 
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    FileWriter writer = new FileWriter(scoresFile, true);
 
-                    //write the data
-                    session.makePlayer(name);
-                    writer.write(session.getPlayerName() + " SCORE: " + session.getPlayerScore());
-                    writer.close();
-                } catch (IOException e) {
-                    debug("Error with files");
-                }
-
+                // to read from file youtube.com/watch?v=0R3mT6L5F6s
             }
         }
     }
@@ -96,4 +91,19 @@ public class PostGame extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
         toast.show();
     }
+
+    public void writeToFile(String fileName, String line){
+        File path = getApplicationContext().getFilesDir();
+        try {
+            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
+            writer.write(line.getBytes());
+            writer.close();
+            debug("Score Recorded!");
+        } catch (FileNotFoundException e) {
+            debug("File not found");
+        } catch (IOException e) {
+            debug("Issue writing to file");
+        }
+    }
+
 }
