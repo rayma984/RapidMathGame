@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("mode", mode);
         intent.putExtra("STRAT", strat);
         startActivity(intent);
+        finish();
     }
 
     public void additionMode(View view){

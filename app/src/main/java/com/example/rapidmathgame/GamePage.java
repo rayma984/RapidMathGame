@@ -2,6 +2,7 @@ package com.example.rapidmathgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -27,7 +28,8 @@ public class GamePage extends AppCompatActivity {
     TextView lblMode;
     GameSession session;
     TextView lblquestionNumber;
-    private int questionNumber;
+    private int questionNumber = 1;
+    private int durationSecs = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class GamePage extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnAnswer);
         txtInput = findViewById(R.id.txtInput);
         lblquestionNumber = findViewById(R.id.lblQustionNumber);
-        lblquestionNumber.setText("Question 0:");
+        lblquestionNumber.setText("Question " + questionNumber + ":");
 
         //load in the mode label
         String mode = getIntent().getStringExtra("mode");
@@ -52,11 +54,11 @@ public class GamePage extends AppCompatActivity {
         session = new GameSession();
 
         //set the timer
-
         lblTime = findViewById(R.id.lblTimeLeft);
         lblTime.setText("TIME");
 
-        new CountDownTimer(milli_to_sec * 120, milli_to_sec){
+        new CountDownTimer(milli_to_sec * durationSecs, milli_to_sec){
+            //let the player see the time view a textview
             @Override
             public void onTick(long millisUntilFinished) {
                 NumberFormat f = new DecimalFormat("00");
@@ -66,13 +68,23 @@ public class GamePage extends AppCompatActivity {
             }
             @Override
             public void onFinish() { //when time runs out, stop the game
-                Toast toast = Toast.makeText(getApplicationContext(), "Time's Up!", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Time's Up!", Toast.LENGTH_LONG);
                 toast.show();
 
-                //send it to the next activity
+                //disable the button and send us to the next activity
+                btnSubmit.setEnabled(false);
+                sendToPost();
             }
         }.start();
     }
+
+    public void sendToPost(){
+        Intent intent = new Intent(this, PostGame.class);
+        intent.putExtra("session", session);
+        startActivity(intent);
+        finish();
+    }
+
 
     public void loadQuestion(){
         strat.nextProblem();
@@ -82,18 +94,25 @@ public class GamePage extends AppCompatActivity {
 
     public void submitAnswer(View view){
         String input = txtInput.getText().toString();
-        int submission = Integer.parseInt(input);
 
-        //check the answer and add it to the session
-        boolean correct = (submission == answer);
-        session.answer(strat.getProblem(), submission, correct);
+        //Do not allow for empty inputs
+        if(input == ""){
+            debug("Empty answers are not allowed!");
+        }
+        else{
+            int submission = Integer.parseInt(input);
 
-        //clear the textview and load the next question
-        txtInput.setText("");
-        //new question
-        loadQuestion();
-        questionNumber++;
-        lblquestionNumber.setText("Question " + questionNumber + ":");
+            //check the answer and add it to the session
+            boolean correct = (submission == answer);
+            session.answer(strat.getProblem(), submission, correct);
+
+            //clear the textview and load the next question
+            txtInput.setText("");
+            //new question
+            loadQuestion();
+            questionNumber++;
+            lblquestionNumber.setText("Question " + questionNumber + ":");
+        }
     }
 
     public void debug(String msg){

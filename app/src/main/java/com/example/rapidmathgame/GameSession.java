@@ -1,8 +1,9 @@
 package com.example.rapidmathgame;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameSession {
+public class GameSession implements Serializable {
     ArrayList<String> questions = new ArrayList<>();
     ArrayList<Boolean> results = new ArrayList<>();
     ArrayList<Integer> answers = new ArrayList<>();
@@ -25,8 +26,11 @@ public class GameSession {
         answers.add(answer);
     }
 
-    public void gameOver(){
-
+    public void makePlayer(String name){
+        player = new Player(name, score);
     }
+
+    public String getPlayerName(){return player.name;}
+    public int getPlayerScore(){return score;}
 
 }
