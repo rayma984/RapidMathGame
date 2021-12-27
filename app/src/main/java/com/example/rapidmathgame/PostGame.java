@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -69,17 +72,21 @@ public class PostGame extends AppCompatActivity {
         else {
             //get the name
             session.makePlayer(name);
-
+            String output = session.getPlayerName() + " : " + session.getPlayerScore();
             //upload the score to the firebase
             if (chbxOnline.isChecked()) {
-
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("SCORES");
+                ref.push().setValue(output);
+                debug("Score uploaded");
             }
 
             //store the data in a file
             if (chbxLocal.isChecked()) {
-                String output = session.getPlayerName() + " : " + session.getPlayerScore();
                 writeToFile(getString(R.string.filename), output);
             }
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -97,9 +104,9 @@ public class PostGame extends AppCompatActivity {
             fos.close();
             debug("Score Recorded");
         } catch (FileNotFoundException e) {
-            debug("File not found");
+            debug("No Local Scores Found");
         } catch (IOException e) {
-            debug("IOException");
+            debug("Issue Recording Score");
         }
     }
 

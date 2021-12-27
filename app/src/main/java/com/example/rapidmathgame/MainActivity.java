@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     public void viewScores(View view){
         Intent intent = new Intent(this, ViewScores.class);
         startActivity(intent);
-        finish();
     }
 
 }

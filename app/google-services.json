@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "190519919008",
+    "project_id": "rapidmathgame",
+    "storage_bucket": "rapidmathgame.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190519919008:android:21115c4eaadb0743fea4c5",
+        "android_client_info": {
+          "package_name": "com.example.rapidmathgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190519919008-0ec38to2cda99i5q3l3fj73i4kn0m7p8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp7mWbbnWaQlLsFU6vXRQrdpxPsyjogq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190519919008-0ec38to2cda99i5q3l3fj73i4kn0m7p8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

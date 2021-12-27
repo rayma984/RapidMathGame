@@ -29,7 +29,7 @@ public class GamePage extends AppCompatActivity {
     GameSession session;
     TextView lblquestionNumber;
     private int questionNumber = 1;
-    private int durationSecs = 60;
+    private int durationSecs = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class GamePage extends AppCompatActivity {
         String input = txtInput.getText().toString();
 
         //Do not allow for empty inputs
-        if(input == ""){
+        if(input == "" || input == null || input.length() <= 0){
             debug("Empty answers are not allowed!");
         }
         else{
