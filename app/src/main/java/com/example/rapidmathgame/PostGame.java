@@ -77,12 +77,8 @@ public class PostGame extends AppCompatActivity {
 
             //store the data in a file
             if (chbxLocal.isChecked()) {
-                String fileName = "Scores.txt";
                 String output = session.getPlayerName() + " : " + session.getPlayerScore();
-                writeToFile(fileName, output);
-
-
-                // to read from file youtube.com/watch?v=0R3mT6L5F6s
+                writeToFile(getString(R.string.filename), output);
             }
         }
     }
@@ -93,17 +89,30 @@ public class PostGame extends AppCompatActivity {
     }
 
     public void writeToFile(String fileName, String line){
-        File path = getApplicationContext().getFilesDir();
+        File scoresFile = new File(getApplicationContext().getFilesDir(), fileName);
         try {
-            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
-            writer.write(line.getBytes());
-            writer.close();
-            debug("Score Recorded!");
+            FileOutputStream fos = getApplicationContext().openFileOutput(fileName, Context.MODE_APPEND);
+            fos.write(line.getBytes(StandardCharsets.UTF_8));
+            fos.close();
+            debug("Score Recorded");
         } catch (FileNotFoundException e) {
             debug("File not found");
         } catch (IOException e) {
-            debug("Issue writing to file");
+            debug("IOException");
         }
+
+
+//        File path = getApplicationContext().getFilesDir();
+//        try {
+//            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
+//            writer.write(line.getBytes());
+//            writer.close();
+//            debug("Score Recorded!");
+//        } catch (FileNotFoundException e) {
+//            debug("File not found");
+//        } catch (IOException e) {
+//            debug("Issue writing to file");
+//        }
     }
 
 }

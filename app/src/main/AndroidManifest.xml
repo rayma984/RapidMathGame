@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RapidMathGame">
         <activity
+            android:name=".ViewScores"
+            android:exported="false" />
+        <activity
             android:name=".PostGame"
             android:exported="false" />
         <activity

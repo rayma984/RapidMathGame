@@ -28,23 +28,30 @@ public class MainActivity extends AppCompatActivity {
     public void additionMode(View view){
         strat = new AddStrat();
         LoadGame(getString(R.string.Addition));
-        //result("Addition Selected");
+        debug("Addition Selected");
     }
 
     public void subtractionMode(View view){
         strat = new SubStrat();
         LoadGame(getString(R.string.Subtraction));
-        //result("Subtraction Selected");
+        debug("Subtraction Selected");
     }
 
     public void multiplicationMode(View view){
         strat = new MultStrat();
         LoadGame(getString(R.string.Multiplication));
-        //result("Multiplication Selected");
+        debug("Multiplication Selected");
     }
 
-    public void result(String message) {
+    public void debug(String message) {
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
     }
+
+    public void viewScores(View view){
+        Intent intent = new Intent(this, ViewScores.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
