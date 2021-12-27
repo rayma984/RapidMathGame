@@ -76,6 +76,7 @@
         android:layout_marginStart="144dp"
         android:layout_marginEnd="144dp"
         android:layout_marginBottom="100dp"
+        android:onClick="viewScores"
         android:text="View Scores"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -92,6 +92,7 @@ public class PostGame extends AppCompatActivity {
         File scoresFile = new File(getApplicationContext().getFilesDir(), fileName);
         try {
             FileOutputStream fos = getApplicationContext().openFileOutput(fileName, Context.MODE_APPEND);
+            line += "\n";
             fos.write(line.getBytes(StandardCharsets.UTF_8));
             fos.close();
             debug("Score Recorded");
@@ -100,19 +101,6 @@ public class PostGame extends AppCompatActivity {
         } catch (IOException e) {
             debug("IOException");
         }
-
-
-//        File path = getApplicationContext().getFilesDir();
-//        try {
-//            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
-//            writer.write(line.getBytes());
-//            writer.close();
-//            debug("Score Recorded!");
-//        } catch (FileNotFoundException e) {
-//            debug("File not found");
-//        } catch (IOException e) {
-//            debug("Issue writing to file");
-//        }
     }
 
 }

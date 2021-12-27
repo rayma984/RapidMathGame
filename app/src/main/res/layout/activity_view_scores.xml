@@ -32,7 +32,7 @@
         <ListView
             android:id="@+id/lstScores"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="529dp" />
     </LinearLayout>
 
     <Button
@@ -42,6 +42,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
+        android:onClick="getLocal"
         android:text="Local"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

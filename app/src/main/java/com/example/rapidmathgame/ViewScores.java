@@ -38,6 +38,9 @@ public class ViewScores extends AppCompatActivity {
             FileInputStream fis = getApplicationContext().openFileInput(getString(R.string.filename)); //code from android documentation
             InputStreamReader Streamreader = new InputStreamReader(fis, StandardCharsets.UTF_8);
 
+            //reset the listview
+            clearLST();
+
             //read individual lines and add them to the listView
             BufferedReader reader = new BufferedReader(Streamreader);
             String line = reader.readLine();
@@ -58,5 +61,11 @@ public class ViewScores extends AppCompatActivity {
     public void debug(String msg){
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    //removes the entries from the listview
+    private void clearLST(){
+        strAdapter.clear();
+        //strAdapter.notifyDataSetChanged();
     }
 }
