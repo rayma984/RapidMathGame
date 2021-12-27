@@ -9,6 +9,8 @@ public class GameSession implements Serializable {
     ArrayList<Integer> answers = new ArrayList<>();
     Player player;
     int score;
+    int totalQs;
+    int correctQs;
 
     public GameSession(){
         score = 0;
@@ -16,10 +18,14 @@ public class GameSession implements Serializable {
 
     public void answer(String question, int answer, boolean correct){
 
-        if (correct)
+        if (correct) {
             score += 10;
+            correctQs++;
+        }
         else
             score -= 10;
+
+        totalQs++;
 
         questions.add(question);
         results.add(correct);
@@ -31,6 +37,7 @@ public class GameSession implements Serializable {
     }
 
     public String getPlayerName(){return player.name;}
+
     public int getPlayerScore(){return score;}
 
 }
