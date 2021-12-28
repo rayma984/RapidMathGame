@@ -1,5 +1,6 @@
 package com.example.rapidmathgame;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -7,6 +8,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,7 +46,7 @@ public class ViewScores extends AppCompatActivity {
             InputStreamReader Streamreader = new InputStreamReader(fis, StandardCharsets.UTF_8);
 
             //reset the listview
-            clearLST();
+            strAdapter.clear();
 
             //read individual lines and add them to the listView
             BufferedReader reader = new BufferedReader(Streamreader);
@@ -52,14 +59,13 @@ public class ViewScores extends AppCompatActivity {
 
             while(line != null){
                 strAdapter.add(line);
-
                 line = reader.readLine();
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            debug("File not Found");
+            debug("No local scores");
         } catch (IOException e) {
-            debug("IOException");
+            debug("Trouble Fetching Scores");
         }
 
     }
@@ -69,9 +75,24 @@ public class ViewScores extends AppCompatActivity {
         toast.show();
     }
 
-    //removes the entries from the listview
-    private void clearLST(){
+    public void getGlobal(View view){
         strAdapter.clear();
-        //strAdapter.notifyDataSetChanged();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("SCORES");
+        ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                //loop through each score on the database and add it to the listview--
+                if(task.getResult().getChildren() != null){
+                    for (DataSnapshot child: task.getResult().getChildren()){
+                        String entry = child.getValue(String.class);
+                        strAdapter.add(entry);
+                    }
+                }
+                else{
+                    debug("Trouble Reaching the Global Scores");
+                }
+            }
+        });
     }
 }

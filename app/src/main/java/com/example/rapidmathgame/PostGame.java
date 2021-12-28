@@ -60,7 +60,7 @@ public class PostGame extends AppCompatActivity {
 
         //get the name
         String name = txtName.getText().toString();
-        Pattern p = Pattern.compile("[a-z]{3}|[A-Z]{3}");
+        Pattern p = Pattern.compile("[a-z]{5}|[A-Z]{5}");
         Matcher m = p.matcher(name);
 
         //invalid input name. Display the error message and reset the EditText
@@ -70,7 +70,9 @@ public class PostGame extends AppCompatActivity {
             txtName.setText("");
         }//valid name input
         else {
-            //get the name
+            //get the name (capitalized)
+            name = name.toUpperCase();
+
             session.makePlayer(name);
             String output = session.getPlayerName() + " : " + session.getPlayerScore();
             //upload the score to the firebase
@@ -104,7 +106,7 @@ public class PostGame extends AppCompatActivity {
             fos.close();
             debug("Score Recorded");
         } catch (FileNotFoundException e) {
-            debug("No Local Scores Found");
+            debug("Cant access scores----");
         } catch (IOException e) {
             debug("Issue Recording Score");
         }
