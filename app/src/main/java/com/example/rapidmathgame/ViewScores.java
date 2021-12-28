@@ -44,12 +44,18 @@ public class ViewScores extends AppCompatActivity {
             //read individual lines and add them to the listView
             BufferedReader reader = new BufferedReader(Streamreader);
             String line = reader.readLine();
+
+            //if the file is empty
+            if(line == null){
+                debug("No Scores Recorded");
+            }
+
             while(line != null){
                 strAdapter.add(line);
 
                 line = reader.readLine();
             }
-
+            reader.close();
         } catch (FileNotFoundException e) {
             debug("File not Found");
         } catch (IOException e) {

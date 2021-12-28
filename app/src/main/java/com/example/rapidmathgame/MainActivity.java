@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 public class MainActivity extends AppCompatActivity {
 
     Strat strat;
@@ -53,4 +57,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void wipeScores(View view){
+        File file = new File(getApplicationContext().getFilesDir(), getString(R.string.filename));
+        try {
+            PrintWriter writer = new PrintWriter(file);
+            writer.print("");
+            writer.close();
+        } catch (FileNotFoundException e) {
+            debug("No Recorded Scores");
+        }
+    }
 }
