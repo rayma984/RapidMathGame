@@ -15,6 +15,8 @@ import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GamePage extends AppCompatActivity {
 
@@ -96,10 +98,9 @@ public class GamePage extends AppCompatActivity {
         String input = txtInput.getText().toString();
 
         //Do not allow for empty inputs
-        if(input == "" || input == null || input.length() <= 0){
+        if(isEmpty(input)){
             debug("Empty answers are not allowed!");
-        }
-        else{
+        } else if (isValid(input)) {
             int submission = Integer.parseInt(input);
 
             //check the answer and add it to the session
@@ -112,11 +113,24 @@ public class GamePage extends AppCompatActivity {
             loadQuestion();
             questionNumber++;
             lblquestionNumber.setText("Question " + questionNumber + ":");
+        } else {
+            debug("Invalid Answer");
+            txtInput.setText("");
         }
     }
 
     public void debug(String msg){
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    private boolean isValid(String input){
+        Pattern p = Pattern.compile("-{0,1}[0-9]+");
+        Matcher m = p.matcher(input);
+        return m.matches();
+    }
+
+    private boolean isEmpty(String input){
+        return (input == "" || input == null || input.length() <= 0);
     }
 }

@@ -32,19 +32,16 @@ public class MainActivity extends AppCompatActivity {
     public void additionMode(View view){
         strat = new AddStrat();
         LoadGame(getString(R.string.Addition));
-        debug("Addition Selected");
     }
 
     public void subtractionMode(View view){
         strat = new SubStrat();
         LoadGame(getString(R.string.Subtraction));
-        debug("Subtraction Selected");
     }
 
     public void multiplicationMode(View view){
         strat = new MultStrat();
         LoadGame(getString(R.string.Multiplication));
-        debug("Multiplication Selected");
     }
 
     public void debug(String message) {
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
-            debug("No Recorded Scores");
+            debug("No Scores on Record");
         }
     }
 }

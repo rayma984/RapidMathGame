@@ -51,7 +51,7 @@ public class PostGame extends AppCompatActivity {
     }
 
     public void submit(View view){
-        //if the player does not want to submit their score
+        //if the player does not want to submit their score, send them back to the start screen
         if(!chbxLocal.isChecked() && !chbxOnline.isChecked()){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
