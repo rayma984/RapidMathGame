@@ -64,4 +64,9 @@ public class MainActivity extends AppCompatActivity {
             debug("No Scores on Record");
         }
     }
+
+    public void Exit(View view){
+        finish();
+        System.exit(0);
+    }
 }
