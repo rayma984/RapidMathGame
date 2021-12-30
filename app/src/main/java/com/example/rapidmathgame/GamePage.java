@@ -23,20 +23,20 @@ public class GamePage extends AppCompatActivity {
     Strat strat;
     int answer;
     TextView lblProb;
-    Button btnSubmit;
-    private final int milli_to_sec = 1000;
-    TextView lblTime;
     EditText txtInput;
-    TextView lblMode;
     GameSession session;
     TextView lblquestionNumber;
     private int questionNumber = 1;
-    private int durationSecs = 20;
+    private boolean quit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_page);
+
+        Button btnSubmit;
+        final int milli_to_sec = 1000;
+        int durationSecs = 20;
 
         btnSubmit = findViewById(R.id.btnAnswer);
         txtInput = findViewById(R.id.txtInput);
@@ -44,10 +44,9 @@ public class GamePage extends AppCompatActivity {
         lblquestionNumber.setText("Question " + questionNumber + ":");
 
         //load in the mode label
+        TextView lblMode = findViewById(R.id.lblMode);
         String mode = getIntent().getStringExtra("mode");
-        lblMode = findViewById(R.id.lblMode);
         lblMode.setText(mode);
-
 
         //set the first question
         strat = (Strat) getIntent().getSerializableExtra("STRAT");
@@ -56,7 +55,7 @@ public class GamePage extends AppCompatActivity {
         session = new GameSession();
 
         //set the timer
-        lblTime = findViewById(R.id.lblTimeLeft);
+        TextView lblTime = findViewById(R.id.lblTimeLeft);
         lblTime.setText("TIME");
 
         new CountDownTimer(milli_to_sec * durationSecs, milli_to_sec){
@@ -70,12 +69,12 @@ public class GamePage extends AppCompatActivity {
             }
             @Override
             public void onFinish() { //when time runs out, stop the game
-                Toast toast = Toast.makeText(getApplicationContext(), "Time's Up!", Toast.LENGTH_LONG);
-                toast.show();
-
-                //disable the button and send us to the next activity
-                btnSubmit.setEnabled(false);
-                sendToPost();
+                if(!quit) {
+                    debug("Time's Up!");
+                    //disable the button and send us to the next activity
+                    btnSubmit.setEnabled(false);
+                    sendToPost();
+                }
             }
         }.start();
     }
@@ -124,6 +123,15 @@ public class GamePage extends AppCompatActivity {
         toast.show();
     }
 
+    public void Quit(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        quit = true;
+        debug("Quit Session");
+        startActivity(intent);
+        finish();
+    }
+
+    //------------------------------------------------Helper functions for input validation
     private boolean isValid(String input){
         Pattern p = Pattern.compile("-{0,1}[0-9]+");
         Matcher m = p.matcher(input);
