@@ -27,7 +27,7 @@ public class MultStrat implements Strat, Serializable {
     public int GenerateNum(){
         int num = rand.nextInt(UPPER); //generate the random int
 
-        while(num ==0){ //ensure that the int is NOT 0
+        while(num ==0 || num == second){ //ensure that the int is NOT 0, or a repeat number
             num = rand.nextInt(UPPER);
         }
         return num;
@@ -38,8 +38,6 @@ public class MultStrat implements Strat, Serializable {
         first = GenerateNum();
 
         second = GenerateNum();
-        while(first == second)
-            second = GenerateNum(); //ensures first != second
     }
 
     @Override
