@@ -8,4 +8,10 @@
     <string name="Name">Name</string>
     <string name="filename">Scores.txt</string>
     <string name="Exit">Exit</string>
+
+    <string-array name="times">
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>2 minutes</item>
+    </string-array>
 </resources>

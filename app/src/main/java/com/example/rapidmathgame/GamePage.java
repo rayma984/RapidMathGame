@@ -36,7 +36,7 @@ public class GamePage extends AppCompatActivity {
 
         Button btnSubmit;
         final int milli_to_sec = 1000;
-        int durationSecs = 20;
+        int durationSecs = getIntent().getIntExtra("time", 30);
 
         btnSubmit = findViewById(R.id.btnAnswer);
         txtInput = findViewById(R.id.txtInput);

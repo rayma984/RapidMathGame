@@ -5,26 +5,53 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Strat strat;
+    Spinner timeMode;
+    private int timeSelected = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        timeMode = (Spinner) findViewById(R.id.spTime);
+        timeMode.setOnItemSelectedListener(this);
     }
+
+    public void onItemSelected(AdapterView<?> parent, View view, //here, the player will choose their playtime
+                               int pos, long id) {
+        switch(pos){
+            case 0:
+                timeSelected = 30;
+                break;
+            case 1:
+                timeSelected = 60;
+                break;
+            case 2:
+                timeSelected = 120;
+                break;
+        }
+    }
+    public void onNothingSelected(AdapterView<?> parent) {
+        timeSelected = 30; //30s is the default time
+    }
+
 
     public void LoadGame(String mode){
         Intent intent = new Intent(this, GamePage.class);
         intent.putExtra("mode", mode);
         intent.putExtra("STRAT", strat);
+        intent.putExtra("time", timeSelected);
         startActivity(intent);
         finish();
     }

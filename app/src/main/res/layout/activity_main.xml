@@ -6,46 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnAddition"
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="143dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="143dp"
-        android:layout_marginBottom="6dp"
-        android:onClick="additionMode"
-        android:text="@string/Addition"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSubtract"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMultiply" />
-
-    <Button
-        android:id="@+id/btnSubtract"
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="143dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="143dp"
-        android:layout_marginBottom="263dp"
-        android:onClick="multiplicationMode"
-        android:text="@string/Multiplication"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddition" />
-
     <TextView
         android:id="@+id/lblTitleScreen"
         android:layout_width="287dp"
         android:layout_height="39dp"
         android:layout_marginStart="142dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="143dp"
-        android:text="Choose Game Mode"
+        android:text="Rapid Math Game!"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,28 +22,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnMultiply"
-        android:layout_width="125dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="143dp"
-        android:layout_marginBottom="6dp"
-        android:onClick="subtractionMode"
-        android:text="@string/Subtraction"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddition"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblTitleScreen" />
-
-    <Button
         android:id="@+id/btnScores"
         android:layout_width="123dp"
         android:layout_height="68dp"
         android:layout_marginStart="144dp"
         android:layout_marginEnd="144dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="75dp"
         android:onClick="viewScores"
         android:text="View Scores"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -103,4 +55,49 @@
         android:text="@string/Exit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="176dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="25dp"
+        android:onClick="additionMode"
+        android:text="@string/Addition"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spTime" />
+
+    <Button
+        android:id="@+id/btnSub"
+        android:layout_width="176dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="25dp"
+        android:onClick="subtractionMode"
+        android:text="@string/Subtraction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="176dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="25dp"
+        android:onClick="multiplicationMode"
+        android:text="@string/Multiplication"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSub" />
+
+    <Spinner
+        android:id="@+id/spTime"
+        android:layout_width="258dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="73dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="73dp"
+        android:entries="@array/times"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblTitleScreen" />
 </androidx.constraintlayout.widget.ConstraintLayout>
