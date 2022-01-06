@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,7 @@ public class ViewScores extends AppCompatActivity {
 
     ListView lstScores;
     ArrayAdapter<String> strAdapter;
+    Spinner spTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class ViewScores extends AppCompatActivity {
         lstScores = (ListView) findViewById(R.id.lstScores);
         strAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         lstScores.setAdapter(strAdapter);
+
+        spTime = (Spinner) findViewById(R.id.spScoreTime);
     }
 
     public void getLocal(View view){

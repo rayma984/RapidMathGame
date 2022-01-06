@@ -11,6 +11,7 @@ public class GameSession implements Serializable {
     int score;
     int totalQs;
     int correctQs;
+    private int time;
 
     public GameSession(){
         score = 0;
@@ -40,4 +41,15 @@ public class GameSession implements Serializable {
 
     public int getPlayerScore(){return score;}
 
+    public void setTime(int time) {
+        this.time = time;
+    }
+    public int getTime(){
+        return time;
+    }
+
+    @Override
+    public String toString(){
+        return getPlayerScore() + " " + getPlayerName();
+    }
 }

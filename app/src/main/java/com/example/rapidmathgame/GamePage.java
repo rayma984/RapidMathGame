@@ -53,6 +53,7 @@ public class GamePage extends AppCompatActivity {
         lblProb = findViewById(R.id.lblProblem);
         loadQuestion();
         session = new GameSession();
+        session.setTime(durationSecs);
 
         //set the timer
         TextView lblTime = findViewById(R.id.lblTimeLeft);

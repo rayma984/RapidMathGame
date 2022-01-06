@@ -1,5 +1,6 @@
 package com.example.rapidmathgame;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -13,6 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,6 +27,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -74,12 +80,22 @@ public class PostGame extends AppCompatActivity {
             name = name.toUpperCase();
 
             session.makePlayer(name);
-            String output = session.getPlayerName() + " : " + session.getPlayerScore();
+            String output = session.toString();
             //upload the score to the firebase
             if (chbxOnline.isChecked()) {
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("SCORES");
-                ref.push().setValue(output);
-                debug("Score uploaded");
+                //set the reference to the proper time section
+                String timeSection = String.valueOf(session.getTime());
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(timeSection);
+
+                //get all the entries in the section into an arraylist
+                ArrayList<String> entries = getEntries(timeSection);
+                //add the new entry to the entries and sort
+                entries.add(output);
+                Collections.sort(entries);
+
+                //write to the firebase
+                ref.setValue(entries);
+                debug("Score Uploaded");
             }
 
             //store the data in a file
@@ -95,6 +111,27 @@ public class PostGame extends AppCompatActivity {
     public void debug(String msg){
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public ArrayList<String> getEntries(String timeSection){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(timeSection);
+        ArrayList<String> entries = new ArrayList<>();
+        ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                //loop through each score on the database and add it to the arraylist
+                if(task.getResult().getChildren() !=null){
+                    for (DataSnapshot child: task.getResult().getChildren()){
+                        String entry = child.getValue(String.class);
+                        entries.add(entry);
+                    }
+                }
+                else{
+                    debug("Trouble Reaching the Global Scores");
+                }
+            }
+        });
+        return entries;
     }
 
     public void writeToFile(String fileName, String line){
