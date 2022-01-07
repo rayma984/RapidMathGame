@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -24,11 +25,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-public class ViewScores extends AppCompatActivity {
+public class ViewScores extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     ListView lstScores;
     ArrayAdapter<String> strAdapter;
     Spinner spTime;
+    private String timeSelected = "30";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,28 @@ public class ViewScores extends AppCompatActivity {
         strAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         lstScores.setAdapter(strAdapter);
 
+        //set up the spinner
         spTime = (Spinner) findViewById(R.id.spScoreTime);
+        spTime.setOnItemSelectedListener(this);
+    }
+
+    //here, the player will choose which time section to view scores
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        switch(pos){
+            case 0:
+                timeSelected = "30";
+                break;
+            case 1:
+                timeSelected = "60";
+                break;
+            case 2:
+                timeSelected = "120";
+                break;
+        }
+    }
+    public void onNothingSelected(AdapterView<?> parent) {
+        timeSelected = "30"; //30s is the default time
     }
 
     public void getLocal(View view){
@@ -82,7 +105,7 @@ public class ViewScores extends AppCompatActivity {
     public void getGlobal(View view){
         strAdapter.clear();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("SCORES");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(timeSelected);
         ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {

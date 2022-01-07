@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         timeMode = (Spinner) findViewById(R.id.spTime);
         timeMode.setOnItemSelectedListener(this);
     }
-
-    public void onItemSelected(AdapterView<?> parent, View view, //here, the player will choose their playtime
+    //here, the player will choose their playtime
+    public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         switch(pos){
             case 0:

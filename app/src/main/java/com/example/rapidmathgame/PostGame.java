@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,15 +18,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -87,14 +82,9 @@ public class PostGame extends AppCompatActivity {
                 String timeSection = String.valueOf(session.getTime());
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(timeSection);
 
-                //get all the entries in the section into an arraylist
-                ArrayList<String> entries = getEntries(timeSection);
-                //add the new entry to the entries and sort
-                entries.add(output);
-                Collections.sort(entries);
+                //add the new entry to the firebase
+                addEntry(timeSection, output);
 
-                //write to the firebase
-                ref.setValue(entries);
                 debug("Score Uploaded");
             }
 
@@ -113,9 +103,10 @@ public class PostGame extends AppCompatActivity {
         toast.show();
     }
 
-    public ArrayList<String> getEntries(String timeSection){
+    public void addEntry(String timeSection, String output){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(timeSection);
         ArrayList<String> entries = new ArrayList<>();
+
         ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -129,9 +120,32 @@ public class PostGame extends AppCompatActivity {
                 else{
                     debug("Trouble Reaching the Global Scores");
                 }
+                //add the new entry, sort, and upload it to the firebase
+                entries.add(output);
+                sortEntries(entries);
+                ref.setValue(entries);
             }
         });
-        return entries;
+    }
+
+    //bubble sort the entries (into descending order)
+    private void sortEntries(ArrayList<String> entries){
+        for(int i = 0; i< entries.size() -1; i++){
+            for(int j = 0; j < entries.size() -1 -i; j++){
+                //define our terms of comparison
+                String s1 = entries.get(j).split(" ")[0];
+                String s2 = entries.get(j+1).split(" ")[0];
+                int n1 = Integer.parseInt(s1);
+                int n2 = Integer.parseInt(s2);
+
+                if(n1 < n2){
+                    //reverse the orders of n1 and n2
+                    String temp = entries.get(j);
+                    entries.set(j, entries.get(j+1));
+                    entries.set(j+1, temp);
+                }
+            }
+        }
     }
 
     public void writeToFile(String fileName, String line){
