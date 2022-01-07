@@ -117,7 +117,7 @@ public class ViewScores extends AppCompatActivity implements AdapterView.OnItemS
                     }
                 }
                 else{
-                    debug("Trouble Reaching the Global Scores");
+                    debug("No Recorded Scores");
                 }
             }
         });

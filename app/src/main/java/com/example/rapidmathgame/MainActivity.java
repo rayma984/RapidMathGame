@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             PrintWriter writer = new PrintWriter(file);
             writer.print("");
             writer.close();
+            debug("Wiped Scores");
         } catch (FileNotFoundException e) {
             debug("No Scores on Record");
         }
