@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         timeMode = (Spinner) findViewById(R.id.spTime);
         timeMode.setOnItemSelectedListener(this);
     }
+
     //here, the player will choose their playtime
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
@@ -47,9 +48,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-    public void LoadGame(String mode){
+    public void LoadGame(){
+        //the game will require the game mode and time
         Intent intent = new Intent(this, GamePage.class);
-        intent.putExtra("mode", mode);
         intent.putExtra("STRAT", strat);
         intent.putExtra("time", timeSelected);
         startActivity(intent);
@@ -58,29 +59,37 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void additionMode(View view){
         strat = new AddStrat();
-        LoadGame(getString(R.string.Addition));
+        LoadGame();
     }
 
     public void subtractionMode(View view){
         strat = new SubStrat();
-        LoadGame(getString(R.string.Subtraction));
+        LoadGame();
     }
 
     public void multiplicationMode(View view){
         strat = new MultStrat();
-        LoadGame(getString(R.string.Multiplication));
+        LoadGame();
     }
 
+    public void ManyMode(View view){
+        strat = new ManyStrat();
+        LoadGame();
+    }
+
+    //display a short toast message
     public void debug(String message) {
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
     }
 
+    //let the user view the scores
     public void viewScores(View view){
         Intent intent = new Intent(this, ViewScores.class);
         startActivity(intent);
     }
 
+    //reset the scores on the local Scores.txt file
     public void wipeScores(View view){
         File file = new File(getApplicationContext().getFilesDir(), getString(R.string.filename));
         try {

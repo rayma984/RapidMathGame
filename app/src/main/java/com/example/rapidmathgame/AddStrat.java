@@ -36,8 +36,12 @@ public class AddStrat implements Strat, Serializable {
     @Override
     public void nextProblem(){
         first = GenerateNum();
-
         second = GenerateNum();
+    }
+
+    @Override
+    public String getMode() {
+        return "Addition";
     }
 
     @Override

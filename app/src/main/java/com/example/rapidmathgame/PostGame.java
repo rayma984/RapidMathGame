@@ -34,6 +34,7 @@ public class PostGame extends AppCompatActivity {
     CheckBox chbxLocal;
     GameSession session;
     TextView lblScore;
+    String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class PostGame extends AppCompatActivity {
 
         //get the info from the previous activity
         session = (GameSession) getIntent().getSerializableExtra("session");
+        mode = getIntent().getStringExtra("mode");
         lblScore.setText("Score: " + session.getPlayerScore());
     }
 
@@ -75,7 +77,7 @@ public class PostGame extends AppCompatActivity {
             name = name.toUpperCase();
 
             session.makePlayer(name);
-            String output = session.toString();
+            String output = session.toString() + " - " + mode;
             //upload the score to the firebase
             if (chbxOnline.isChecked()) {
                 //set the reference to the proper time section

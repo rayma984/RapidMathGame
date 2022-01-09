@@ -34,26 +34,25 @@ public class GamePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_page);
 
+        //set the time
         Button btnSubmit;
         final int milli_to_sec = 1000;
         int durationSecs = getIntent().getIntExtra("time", 30);
 
-        btnSubmit = findViewById(R.id.btnAnswer);
-        txtInput = findViewById(R.id.txtInput);
-        lblquestionNumber = findViewById(R.id.lblQustionNumber);
-        lblquestionNumber.setText("Question " + questionNumber + ":");
-
-        //load in the mode label
-        TextView lblMode = findViewById(R.id.lblMode);
-        String mode = getIntent().getStringExtra("mode");
-        lblMode.setText(mode);
-
-        //set the first question
+        //set the first question and the game session
         strat = (Strat) getIntent().getSerializableExtra("STRAT");
         lblProb = findViewById(R.id.lblProblem);
         loadQuestion();
         session = new GameSession();
         session.setTime(durationSecs);
+
+        //set up the labels and other views
+        btnSubmit = findViewById(R.id.btnAnswer);
+        txtInput = findViewById(R.id.txtInput);
+        lblquestionNumber = findViewById(R.id.lblQustionNumber);
+        lblquestionNumber.setText("Question " + questionNumber + ":");
+        TextView lblMode = findViewById(R.id.lblMode);
+        lblMode.setText(strat.getMode());
 
         //set the timer
         TextView lblTime = findViewById(R.id.lblTimeLeft);
@@ -70,7 +69,7 @@ public class GamePage extends AppCompatActivity {
             }
             @Override
             public void onFinish() { //when time runs out, stop the game
-                if(!quit) {
+                if(!quit) {//if quit were to be true, we would not want to be sent to post game
                     debug("Time's Up!");
                     //disable the button and send us to the next activity
                     btnSubmit.setEnabled(false);
@@ -80,20 +79,23 @@ public class GamePage extends AppCompatActivity {
         }.start();
     }
 
+    //method to end the game and allow the user to submit score in the next activity
     public void sendToPost(){
         Intent intent = new Intent(this, PostGame.class);
         intent.putExtra("session", session);
+        intent.putExtra("mode", strat.getMode());
         startActivity(intent);
         finish();
     }
 
-
+    //get and display the next question
     public void loadQuestion(){
         strat.nextProblem();
         lblProb.setText(strat.getProblem());
         answer = strat.getAnswer();
     }
 
+    //submit an answer to the game session
     public void submitAnswer(View view){
         String input = txtInput.getText().toString();
 
@@ -109,21 +111,23 @@ public class GamePage extends AppCompatActivity {
 
             //clear the textview and load the next question
             txtInput.setText("");
-            //new question
             loadQuestion();
             questionNumber++;
             lblquestionNumber.setText("Question " + questionNumber + ":");
         } else {
+            //in the case that the submitted answer is of an invalid format
             debug("Invalid Answer");
             txtInput.setText("");
         }
     }
 
+    //display a short toast message
     public void debug(String msg){
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
         toast.show();
     }
 
+    //prematurely end the game session
     public void Quit(View view){
         Intent intent = new Intent(this, MainActivity.class);
         quit = true;

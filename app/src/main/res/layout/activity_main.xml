@@ -61,7 +61,7 @@
         android:layout_width="176dp"
         android:layout_height="59dp"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:onClick="additionMode"
         android:text="@string/Addition"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
         android:layout_width="176dp"
         android:layout_height="59dp"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:onClick="subtractionMode"
         android:text="@string/Subtraction"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +83,7 @@
         android:layout_width="176dp"
         android:layout_height="59dp"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:onClick="multiplicationMode"
         android:text="@string/Multiplication"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,4 +100,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblTitleScreen" />
+
+    <Button
+        android:id="@+id/btnMany"
+        android:layout_width="177dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="10dp"
+        android:onClick="ManyMode"
+        android:text="Multi-Mode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

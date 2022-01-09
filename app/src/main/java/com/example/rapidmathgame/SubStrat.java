@@ -41,6 +41,11 @@ public class SubStrat implements Strat, Serializable {
     }
 
     @Override
+    public String getMode() {
+        return "Subtraction";
+    }
+
+    @Override
     public String toString(){
         return getProblem();
     }

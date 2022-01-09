@@ -16,13 +16,6 @@ public class ManyStrat implements Serializable, Strat {
         nextProblem();
     }
 
-    private void setAdd(){
-        strat = add;
-    }
-    private void setSub(){
-        strat = sub;
-    }
-
     @Override
     public String getProblem() {
         return strat.getProblem();
@@ -51,6 +44,11 @@ public class ManyStrat implements Serializable, Strat {
         }
 
         strat.nextProblem();
+    }
+
+    @Override
+    public String getMode() {
+        return "Many-Mode";
     }
 
     @Override

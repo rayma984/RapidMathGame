@@ -41,6 +41,11 @@ public class MultStrat implements Strat, Serializable {
     }
 
     @Override
+    public String getMode() {
+        return "Multiplication";
+    }
+
+    @Override
     public String toString(){
         return getProblem();
     }
