@@ -17,6 +17,7 @@ public class GameSession implements Serializable {
         score = 0;
     }
 
+    //add the question data and user response to game session fields and update score
     public void answer(String question, int answer, boolean correct){
 
         if (correct) {

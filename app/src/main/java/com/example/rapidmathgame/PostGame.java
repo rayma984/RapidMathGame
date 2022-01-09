@@ -61,7 +61,7 @@ public class PostGame extends AppCompatActivity {
             finish();
         }
 
-        //get the name
+        //get the name and check for validity
         String name = txtName.getText().toString();
         Pattern p = Pattern.compile("[a-z]{5}|[A-Z]{5}");
         Matcher m = p.matcher(name);
@@ -100,11 +100,13 @@ public class PostGame extends AppCompatActivity {
         }
     }
 
+    //short toast message
     public void debug(String msg){
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
         toast.show();
     }
 
+    //add the submission onto the firebase
     public void addEntry(String timeSection, String output){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(timeSection);
         ArrayList<String> entries = new ArrayList<>();
@@ -150,6 +152,7 @@ public class PostGame extends AppCompatActivity {
         }
     }
 
+    //add the submission onto the local records
     public void writeToFile(String fileName, String line){
         File scoresFile = new File(getApplicationContext().getFilesDir(), fileName);
         try {
